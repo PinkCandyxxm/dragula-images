@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <link href='dist/dragula.css' rel='stylesheet' type='text/css' />
+    <title>dragula</title>
+    <style>
+        .del {
+            width: 20px;
+            height: 20px;
+            display: block;
+            background: red;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        #left-rm-spill {
+            width: 700px;
+        }
+
+        #left-rm-spill div {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            float: left;
+            margin: 5px;
+            box-sizing: border-box;
+            background: #dddddd;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='left-rm-spill' class='container'>
+        <div data-id="01">01 Anxious Cab Driver
+            <i class="del" id="del"></i>
+        </div>
+        <div data-id="02">02 Thriving Venture
+            <i class="del"></i>
+        </div>
+        <div data-id="03">
+            <a href='http://ponyfoo.com'>03 a good blog</a>
+            <i class="del"></i>
+        </div>
+        <div data-id="04">04 Calm Clam
+            <i class="del"></i>
+        </div>
+    </div>
+
+    <a class="save-btn">save</a>
+</body>
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src='dist/dragula.js'></script>
+<script>
+    dragula([$('#left-rm-spill')[0]], {
+        moves: function (el, target, source) {
+            if (source.classList.contains('del')) {
+                console.log('删除返回成功就删除');
+                source.parentElement.remove();
+            }
+            return true;
+        }
+    });
+    $('.save-btn').click(function () {//点击保存按钮
+        var _div = $('#left-rm-spill div');
+        var _arr = [];
+        for (var x = 0; x < _div.length; x++) {
+            _arr.push(_div.eq(x).attr('data-id'));
+        }
+        console.log(_arr);
+    });
+</script>
